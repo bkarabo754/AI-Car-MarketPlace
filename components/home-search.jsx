@@ -1,12 +1,13 @@
 'use client';
 
 import { Camera, Search, Upload } from 'lucide-react';
-import { Input } from './ui/input';
+// import { Input } from './input';
 import { useState } from 'react';
-import { Button } from './ui/button';
 import { useDropzone } from 'react-dropzone';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
+import { Input } from './ui/input';
+import { Button } from './ui/button';
 
 const HomeSearch = () => {
   const [searchTerm, setSearchTerm] = useState('');

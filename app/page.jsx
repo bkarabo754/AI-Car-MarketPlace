@@ -29,6 +29,7 @@ export default function Home() {
           </div>
 
           {/* Search */}
+
           <HomeSearch />
         </div>
       </section>

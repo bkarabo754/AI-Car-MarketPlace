@@ -1,12 +1,12 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Badge } from './ui/badge';
-import { Button } from './ui/button';
 import { CarIcon, Heart, Loader2 } from 'lucide-react';
 import Image from 'next/image';
-import { Card, CardContent } from './ui/card';
 import { useRouter } from 'next/navigation';
+import { Button } from './ui/button';
+import { Badge } from './ui/badge';
+import { Card, CardContent } from './ui/card';
 
 const CarCard = ({ car }) => {
   const [isSaved, setIsSaved] = useState(car.wishlisted);
