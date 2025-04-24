@@ -1,5 +1,6 @@
 'use server';
 
+import { revalidatePath } from 'next/cache';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { auth } from '@clerk/nextjs/server';
 import { db } from '@/lib/prisma';
