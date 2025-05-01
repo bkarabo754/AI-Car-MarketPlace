@@ -1,3 +1,4 @@
+import { getFeaturedCars } from '@/actions/home';
 import CarCard from '@/components/car-card';
 import HomeSearch from '@/components/home-search';
 import {
@@ -13,7 +14,9 @@ import { Car, Calendar, ChevronRight, Shield } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-export default function Home() {
+export default async function Home() {
+  const featuredCars = await getFeaturedCars();
+
   return (
     <div className="flex flex-col pt-20">
       {/* Hero Section with Gradient Title */}

@@ -2,12 +2,14 @@
 
 import { Camera, Search, Upload } from 'lucide-react';
 // import { Input } from './input';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
 import { Input } from './ui/input';
 import { Button } from './ui/button';
+import useFetch from '@/hooks/use-fetch';
+import { processImageSearch } from '@/actions/home';
 
 const HomeSearch = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -17,6 +19,14 @@ const HomeSearch = () => {
   const [isUploading, setIsUploading] = useState(false);
 
   const router = useRouter();
+
+  // Use the useFetch hook for image processing
+  const {
+    loading: isProcessing,
+    fn: processImageFn,
+    data: processResult,
+    error: processError,
+  } = useFetch(processImageSearch);
 
   // Handle text search submissions
   const handleTextSubmit = (e) => {
@@ -35,7 +45,35 @@ const HomeSearch = () => {
       toast.error('Please upload an image first');
       return;
     }
+
+    // Use the processImageFn from useFetch hook
+    await processImageFn(searchImage);
   };
+
+  // Handle process result and errors with useEffect
+  useEffect(() => {
+    if (processResult?.success) {
+      const params = new URLSearchParams();
+
+      // Add extracted params to the search
+      if (processResult.data.make) params.set('make', processResult.data.make);
+      if (processResult.data.bodyType)
+        params.set('bodyType', processResult.data.bodyType);
+      if (processResult.data.color)
+        params.set('color', processResult.data.color);
+
+      // Redirect to search results
+      router.push(`/cars?${params.toString()}`);
+    }
+  }, [processResult, router]);
+
+  useEffect(() => {
+    if (processError) {
+      toast.error(
+        'Failed to analyze image: ' + (processError.message || 'Unknown error')
+      );
+    }
+  }, [processError]);
 
   // Handle image upload with react-dropzone
   const onDrop = (acceptedFiles) => {
@@ -150,8 +188,16 @@ const HomeSearch = () => {
             </div>
 
             {imagePreview && (
-              <Button type="submit" className="w-full" disabled={isUploading}>
-                {isUploading ? 'Uploading...' : 'Search with this Image'}
+              <Button
+                type="submit"
+                className="w-full"
+                disabled={isUploading || isProcessing}
+              >
+                {isUploading
+                  ? 'Uploading...'
+                  : isProcessing
+                    ? 'Analyzing image...'
+                    : 'Search with this Image'}
               </Button>
             )}
           </form>
