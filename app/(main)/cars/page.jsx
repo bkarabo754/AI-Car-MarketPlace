@@ -1,5 +1,5 @@
 import { getCarFilters } from '@/actions/car-listing';
-import { CarListings } from './_components/car-listing';
+import { CarListings } from './_components/car-listings';
 import { CarFilters } from './_components/car-filters';
 
 export const metadata = {
