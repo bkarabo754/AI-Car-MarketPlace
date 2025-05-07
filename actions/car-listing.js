@@ -62,7 +62,7 @@ export async function getCarFilters() {
             : 0,
           max: priceAggregations._max.price
             ? parseFloat(priceAggregations._max.price.toString())
-            : 100000,
+            : 1000000,
         },
       },
     };

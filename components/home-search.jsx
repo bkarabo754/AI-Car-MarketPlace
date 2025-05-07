@@ -1,7 +1,6 @@
 'use client';
 
 import { Camera, Search, Upload } from 'lucide-react';
-// import { Input } from './input';
 import { useEffect, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { toast } from 'sonner';

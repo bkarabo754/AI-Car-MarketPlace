@@ -4,9 +4,9 @@ generator client {
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  // directUrl = env("DIRECT_URL")
 }
 
 model User {
@@ -57,7 +57,7 @@ model DealershipInfo {
   id           String        @id @default(uuid())
   name         String        @default("Vehiql Motors")
   address      String        @default("310 Boundary Rd, North Riding AH, Roodeport 2169")
-  phone        String        @default("+27 (065) 807-3689")
+  phone        String        @default("+27 (011) 123-4567")
   email        String        @default("contact@vehiql.com")
   createdAt    DateTime      @default(now())
   updatedAt    DateTime      @updatedAt
